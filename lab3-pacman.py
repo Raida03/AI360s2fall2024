@@ -132,31 +132,10 @@ def nullHeuristic(state, problem=None):
     return 0
 
 
-def aStarSearch(problem, heuristic=nullHeuristic):
-    """Search the node that has the lowest combined cost and heuristic first."""
-    priority_queue = util.PriorityQueue()  # Initialize the priority queue for A*
-    visited = set()  # Set to track visited nodes
-    start_state = problem.getStartState()  # Get the starting state
-    priority_queue.push((start_state, []), 0)  # Push the start state with initial cost
 
-    while not priority_queue.isEmpty():
-        state, path = priority_queue.pop()  # Pop the node with the lowest combined cost
-
-        if problem.isGoalState(state):  # Check if the state is the goal
-            return path  # Return the path to the goal
-
-        if state not in visited:  # If the state has not been visited
-            visited.add(state)  # Mark it as visited
-            for successor, action, step_cost in problem.getSuccessors(state):
-                if successor not in visited:
-                    total_cost = problem.getCostOfActions(path + [action]) + heuristic(successor, problem)
-                    priority_queue.push((successor, path + [action]), total_cost)  # Push the successor with its total cost
-
-    return []
 
 
 # Abbreviations
 bfs = breadthFirstSearch
 dfs = depthFirstSearch
-astar = aStarSearch
 ucs = uniformCostSearch
